@@ -24,25 +24,30 @@ void Client::Client_Init(std::function<void(void*)>fn){
 }
 void Client::send(json json_message)
 {
-    std::cout<<json_message<<std::endl;
-    if( json_message["request_type"].get<std::string>() == "group_add_strategy" )
-    {
+    //std::cout<<json_message<<std::endl;
+    if (c.get_con_from_hdl(hdl)->get_state() == websocketpp::session::state::open) {
+        if( json_message["request_type"].get<std::string>() == "group_add_strategy" )
+        {
 
-        c.send(hdl,json_message.dump().c_str(), websocketpp::frame::opcode::text);
+            c.send(hdl,json_message.dump().c_str(), websocketpp::frame::opcode::text);
+        }
+        else if(json_message["request_type"].get<std::string>()=="group_remove_strategy"){
+            c.send(hdl,json_message.dump().c_str(),websocketpp::frame::opcode::text);
+        }
+        else if(json_message["request_type"].get<std::string>()=="check_running_strategy"){
+            c.send(hdl,json_message.dump().c_str(),websocketpp::frame::opcode::text);
+        }
+        else if(json_message["request_type"].get<std::string>()=="check_removed_strategy"){
+            c.send(hdl,json_message.dump().c_str(),websocketpp::frame::opcode::text);
+        }
+        else if(json_message["request_type"].get<std::string>()=="cancel_order"){
+            c.send(hdl,json_message.dump().c_str(),websocketpp::frame::opcode::text);
+        }
+        else  c.send(hdl,json_message.dump().c_str(), websocketpp::frame::opcode::text);
+    } else {
+        std::cout<<"err"<<std::endl;
     }
-    else if(json_message["request_type"].get<std::string>()=="group_remove_strategy"){
-        c.send(hdl,json_message.dump().c_str(),websocketpp::frame::opcode::text);
-    }
-    else if(json_message["request_type"].get<std::string>()=="check_running_strategy"){
-        c.send(hdl,json_message.dump().c_str(),websocketpp::frame::opcode::text);
-    }
-    else if(json_message["request_type"].get<std::string>()=="check_removed_strategy"){
-        c.send(hdl,json_message.dump().c_str(),websocketpp::frame::opcode::text);
-    }
-    else if(json_message["request_type"].get<std::string>()=="cancel_order"){
-        c.send(hdl,json_message.dump().c_str(),websocketpp::frame::opcode::text);
-    }
-    else  c.send(hdl,json_message.dump().c_str(), websocketpp::frame::opcode::text);
+
 }
 
 

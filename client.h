@@ -47,15 +47,16 @@ enum Index{
 class Client
 {
 public:
-    Client():c(),url("ws://45.125.34.103:8765"){};
+    Client():c(),url(){};
     void Client_Init(std::function<void(void*)>fn);
     void on_message( websocketpp::connection_hdl hdl, message_ptr msg);
     std::queue<std::vector<std::string>>ans;
     //void send(int i,void* ptr);
     void send(json data);
+     std::string url;
 private:
+
     client c;
-    std::string url;
     websocketpp::connection_hdl hdl;//服务器连接句柄
     std::function<void(void*)>fc;//回调函数包装类
 };

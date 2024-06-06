@@ -24,6 +24,8 @@ public:
     void  setItem(QTableWidget *tableWidget);//设置表格标题
     void show_table(std::vector<strategy_*>&S,Client&CL);
     void create_table(QTableWidget *tableWidget,int x,strategy_1&s);
+    void show_wlwarn();
+    void age_IP(std::string url,std::function<std::string&(void)>it);
 private:
     QVBoxLayout *mainLayout;
     QHBoxLayout *layout;

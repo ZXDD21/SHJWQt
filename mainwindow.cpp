@@ -71,11 +71,14 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),CL()
 {
+     CL.url=geturl();
     std::thread tha(std::bind(&MainWindow::ClientRun,this));
     Strategy_=deserializeStrategyFromFile(FILE);
+
     Sleep(3000);
     ui->setupUi(this);
     showstrategy_();
+    ui->label->setText(QString::fromStdString("策略管理系统   "+CL.url));
     /*  QCheckBox *checkBox__0;
     checkBox__0 = new QCheckBox(ui->groupBox_3);
     checkBox__0->setObjectName("checkBox__0");
@@ -88,6 +91,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     serializeStrategyToFile(Strategy_,FILE);
+    saveurl();
     delete ui;
 }
 
@@ -820,6 +824,29 @@ void MainWindow:: removestategy(json data){
     }
     InittableWidget(1);
 }
+
+std::string MainWindow::geturl()
+{
+     std::ifstream file("IP.txt");
+    if (!file.is_open()) {
+        std::cerr << "bad IP" << std::endl;
+        return std::string("ws://45.125.34.103:8765");
+    }
+    std::string url;
+    file>>url;
+    return url;
+}
+
+void MainWindow::saveurl()
+{
+    std::ofstream file("IP.txt");
+    if (!file.is_open()) {
+        std::cerr << "无法打开文件进行写入" << std::endl;
+        return;
+    }
+    file<<CL.url;
+    file.close();
+}
 void MainWindow::on_refresh_table_3_clicked()
 {
     json son_message;
@@ -949,5 +976,15 @@ void MainWindow::on_action_3_triggered()
         qDebug() << "Failed to open the file for writing:" << fileName;
     }
 
+}
+
+
+void MainWindow::on_action_IP_triggered()
+{
+    NewWindow *newWindow = new NewWindow(nullptr);
+    newWindow->age_IP(CL.url,[&]()->std::string&{
+                 return CL.url;
+    });
+    newWindow->show();
 }
 

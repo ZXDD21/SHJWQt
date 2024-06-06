@@ -45,6 +45,8 @@ private slots:
 
     void on_action_3_triggered();
 
+    void on_action_IP_triggered();
+
 private:
     Ui::MainWindow *ui;
     Client CL;//服务器
@@ -65,6 +67,8 @@ private:
     void addstrategy(json data);//增加策略信息
     void removestategy(json data);//修改策略信息
     std::vector<strategy_*>Strategy_;//策略模板
+    std::string geturl();
+    void saveurl();
     void serializeStrategyToFile(const std::vector<strategy_*>& strategies, const std::string& filename);//写入文件
     std::vector<strategy_*> deserializeStrategyFromFile(const std::string& filename);//读取文件
     void addstrategy_(strategy_*);//增加新的策略

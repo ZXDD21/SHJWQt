@@ -151,6 +151,52 @@ void  NewWindow::create_table(QTableWidget *tableWidget,int x,strategy_1&s){
     item=new QTableWidgetItem(QString::number(s.Cond4HighTime),IndexCond4HighTime+1000);
     tableWidget->setItem(x,15,item);
 }
+
+void NewWindow::show_wlwarn()
+{
+    setWindowTitle("warn");
+    mainLayout = new QVBoxLayout(this);
+    layout = new QHBoxLayout(this);
+    QLabel *label = new QLabel("网络断开！！！，请联系管理员---王文影", this);
+    layout->addWidget(label);
+    mainLayout->addLayout(layout);
+    QPushButton *button1 = new QPushButton("确认");
+    layout->addWidget(button1);
+    mainLayout->addLayout(layout);
+    connect(button1,&QPushButton::clicked, this, &QWidget::close);
+    // 设置布局为窗口的布局
+    setLayout(mainLayout);
+}
+
+void NewWindow::age_IP(std::string url,std::function<std::string&(void)>it)
+{
+    setWindowTitle("age IP");
+    // 创建文本标签
+    QLabel *label = new QLabel(QString::fromStdString(url)+" 更改完请务必重启系统！！！", this);
+
+    // 创建输入框
+    QLineEdit *input = new QLineEdit(this);
+
+    // 创建确认按钮
+    QPushButton *confirmButton = new QPushButton("确认", this);
+
+    // 创建槽函数
+    connect(confirmButton, &QPushButton::clicked, this, [=](){
+        std::string s=input->text().toStdString();
+        it()=s;
+    });
+
+    // 设置布局
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->addWidget(label);       // 添加标签到布局
+    layout->addWidget(input);       // 添加输入框到布局
+    layout->addWidget(confirmButton); // 添加按钮到布局
+    setLayout(layout);
+
+    // 设置窗口标题和初始大小
+    setWindowTitle("带标签的输入框");
+    resize(300, 200);
+}
 void  NewWindow::setItem(QTableWidget *tableWidget)//设置表格标题
 {
     QTableWidgetItem *headerItem;

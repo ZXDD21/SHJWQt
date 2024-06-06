@@ -36,6 +36,7 @@ public:
     QAction *action;
     QAction *action_2;
     QAction *action_3;
+    QAction *action_IP;
     QWidget *centralwidget;
     QGridLayout *gridLayout_9;
     QSplitter *splitter_3;
@@ -44,12 +45,12 @@ public:
     QGridLayout *gridLayout_3;
     QGroupBox *groupBox_4;
     QGridLayout *gridLayout;
-    QPushButton *pushButton_13;
     QLabel *label_16;
-    QPushButton *pushButton_11;
+    QPushButton *pushButton_13;
     QPushButton *pushButton_12;
-    QLabel *label_19;
     QLabel *label_17;
+    QLabel *label_19;
+    QPushButton *pushButton_11;
     QSplitter *splitter_2;
     QLabel *label;
     QWidget *layoutWidget;
@@ -91,6 +92,9 @@ public:
         action_3 = new QAction(MainWindow);
         action_3->setObjectName("action_3");
         action_3->setMenuRole(QAction::NoRole);
+        action_IP = new QAction(MainWindow);
+        action_IP->setObjectName("action_IP");
+        action_IP->setMenuRole(QAction::NoRole);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         gridLayout_9 = new QGridLayout(centralwidget);
@@ -110,35 +114,35 @@ public:
         groupBox_4->setObjectName("groupBox_4");
         gridLayout = new QGridLayout(groupBox_4);
         gridLayout->setObjectName("gridLayout");
-        pushButton_13 = new QPushButton(groupBox_4);
-        pushButton_13->setObjectName("pushButton_13");
-
-        gridLayout->addWidget(pushButton_13, 3, 1, 1, 1);
-
         label_16 = new QLabel(groupBox_4);
         label_16->setObjectName("label_16");
 
-        gridLayout->addWidget(label_16, 1, 0, 1, 1);
+        gridLayout->addWidget(label_16, 0, 0, 1, 1);
 
-        pushButton_11 = new QPushButton(groupBox_4);
-        pushButton_11->setObjectName("pushButton_11");
+        pushButton_13 = new QPushButton(groupBox_4);
+        pushButton_13->setObjectName("pushButton_13");
 
-        gridLayout->addWidget(pushButton_11, 1, 1, 1, 1);
+        gridLayout->addWidget(pushButton_13, 2, 1, 1, 1);
 
         pushButton_12 = new QPushButton(groupBox_4);
         pushButton_12->setObjectName("pushButton_12");
 
-        gridLayout->addWidget(pushButton_12, 2, 1, 1, 1);
-
-        label_19 = new QLabel(groupBox_4);
-        label_19->setObjectName("label_19");
-
-        gridLayout->addWidget(label_19, 3, 0, 1, 1);
+        gridLayout->addWidget(pushButton_12, 1, 1, 1, 1);
 
         label_17 = new QLabel(groupBox_4);
         label_17->setObjectName("label_17");
 
-        gridLayout->addWidget(label_17, 2, 0, 1, 1);
+        gridLayout->addWidget(label_17, 1, 0, 1, 1);
+
+        label_19 = new QLabel(groupBox_4);
+        label_19->setObjectName("label_19");
+
+        gridLayout->addWidget(label_19, 2, 0, 1, 1);
+
+        pushButton_11 = new QPushButton(groupBox_4);
+        pushButton_11->setObjectName("pushButton_11");
+
+        gridLayout->addWidget(pushButton_11, 0, 1, 1, 1);
 
         splitter->addWidget(groupBox_4);
         splitter_3->addWidget(splitter);
@@ -261,6 +265,7 @@ public:
         menu_2->addAction(action);
         menu_2->addAction(action_2);
         menu_2->addAction(action_3);
+        menu_2->addAction(action_IP);
 
         retranslateUi(MainWindow);
 
@@ -279,15 +284,16 @@ public:
         action_2->setToolTip(QCoreApplication::translate("MainWindow", "\344\270\213\350\275\275\347\255\226\347\225\245\345\210\260\346\226\207\344\273\266", nullptr));
 #endif // QT_CONFIG(tooltip)
         action_3->setText(QCoreApplication::translate("MainWindow", "\344\270\213\350\275\275\345\210\240\351\231\244\347\255\226\347\225\245", nullptr));
+        action_IP->setText(QCoreApplication::translate("MainWindow", "\346\233\264\346\224\271IP", nullptr));
         groupBox_3->setTitle(QString());
         groupBox_4->setTitle(QCoreApplication::translate("MainWindow", "\345\242\236\345\212\240\347\255\226\347\225\245", nullptr));
-        pushButton_13->setText(QCoreApplication::translate("MainWindow", "Add", nullptr));
         label_16->setText(QCoreApplication::translate("MainWindow", "\346\250\241\346\235\277\344\270\200", nullptr));
-        pushButton_11->setText(QCoreApplication::translate("MainWindow", "Add", nullptr));
+        pushButton_13->setText(QCoreApplication::translate("MainWindow", "Add", nullptr));
         pushButton_12->setText(QCoreApplication::translate("MainWindow", "Add", nullptr));
-        label_19->setText(QCoreApplication::translate("MainWindow", "\346\250\241\346\235\277\344\270\211", nullptr));
         label_17->setText(QCoreApplication::translate("MainWindow", "\346\250\241\346\235\277\344\272\214", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "\347\255\226\347\225\245\347\256\241\347\220\206\347\263\273\347\273\237", nullptr));
+        label_19->setText(QCoreApplication::translate("MainWindow", "\346\250\241\346\235\277\344\270\211", nullptr));
+        pushButton_11->setText(QCoreApplication::translate("MainWindow", "Add", nullptr));
+        label->setText(QString());
         radioButton->setText(QCoreApplication::translate("MainWindow", "\345\205\250\351\200\211", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "\350\277\220\350\241\214\347\255\226\347\225\245", nullptr));
         pushButton_8->setText(QCoreApplication::translate("MainWindow", "\346\237\245\346\211\276", nullptr));

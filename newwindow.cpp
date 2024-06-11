@@ -66,6 +66,7 @@ void NewWindow::show_newwindows(QStringList &headerText, std::vector<strategy_*>
     } );
     connect(button2, &QPushButton::clicked, this, [=,&Strategy_](){
         std::string exchangeID=comboBox->currentText().toStdString();
+        if(comboBox->currentText().toStdString()=="")exchangeID="0";
         int buyTriggerVolume=LineEdit[0]->text().toInt();
         int cancelVolume=LineEdit[1]->text().toInt();
         int position=LineEdit[2]->text().toInt();
@@ -73,9 +74,12 @@ void NewWindow::show_newwindows(QStringList &headerText, std::vector<strategy_*>
         int currPosition=LineEdit[4]->text().toInt();
         int maxTriggerTimes=LineEdit[5]->text().toInt();
         std::string id=LineEdit[6]->text().toStdString();
+        if(LineEdit[6]->text().toStdString()=="")id="0";
         int status=LineEdit[7]->text().toInt();
         std::string orderID=LineEdit[8]->text().toStdString();
+        if(LineEdit[8]->text().toStdString()=="")orderID="0";
         std::string securityName=LineEdit[9]->text().toStdString();
+        if(LineEdit[9]->text().toStdString()=="")securityName="0";
         int scoutBuyTriggerCashLim=LineEdit[10]->text().toInt();
         float cond2Percent=LineEdit[11]->text().toFloat();
         int cancelTriggerVolumeLarge=LineEdit[12]->text().toInt();

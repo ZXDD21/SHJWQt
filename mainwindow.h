@@ -62,7 +62,7 @@ private:
     const std::string FILE="test.txt";
     std::list<strategy>Strategy;//策略
     std::list<strategy>removeStrategy;//删除策略
-    const int min_strategy_size=17;//前17个没法删除
+    const int min_strategy_size=10;//前17个没法删除
     void getstrategy(json data);//获取策略信息
     void addstrategy(json data);//增加策略信息
     void removestategy(json data);//修改策略信息

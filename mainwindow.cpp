@@ -78,7 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
     Sleep(3000);
     ui->setupUi(this);
     showstrategy_();
-    ui->label->setText(QString::fromStdString("策略管理系统   "+CL.url));
+    ui->label->setText(QString::fromStdString("WWY策略管理系统   "+CL.url));
     /*  QCheckBox *checkBox__0;
     checkBox__0 = new QCheckBox(ui->groupBox_3);
     checkBox__0->setObjectName("checkBox__0");

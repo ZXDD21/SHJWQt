@@ -28,7 +28,7 @@ void Client::send(json json_message)
     if (c.get_con_from_hdl(hdl)->get_state() == websocketpp::session::state::open) {
         if( json_message["request_type"].get<std::string>() == "group_add_strategy" )
         {
-
+            std::cout<<json_message<<std::endl;
             c.send(hdl,json_message.dump().c_str(), websocketpp::frame::opcode::text);
         }
         else if(json_message["request_type"].get<std::string>()=="group_remove_strategy"){

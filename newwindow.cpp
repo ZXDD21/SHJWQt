@@ -42,7 +42,7 @@ void NewWindow::show_newwindows(QStringList &headerText, std::vector<strategy_*>
     layout->addWidget(label);
     QComboBox *comboBox = new QComboBox();
     comboBox->addItem(QString("SSE"));
-    comboBox->addItem(QString("SEZE"));
+    comboBox->addItem(QString("SZSE"));
     layout->addWidget(comboBox);
     mainLayout->addLayout(layout);
     std::vector<QLineEdit*>LineEdit;
@@ -64,9 +64,10 @@ void NewWindow::show_newwindows(QStringList &headerText, std::vector<strategy_*>
     connect(button1, &QPushButton::clicked, this,[&](){
         this->close();
     } );
-    connect(button2, &QPushButton::clicked, this, [=,&Strategy_](){
-        std::string exchangeID=comboBox->currentText().toStdString();
-        if(comboBox->currentText().toStdString()=="")exchangeID="0";
+
+        connect(button2, &QPushButton::clicked, this, [=,&Strategy_](){
+            std::string exchangeID=comboBox->currentText().toStdString();
+            if(comboBox->currentText().toStdString()=="")exchangeID="0";
         int buyTriggerVolume=LineEdit[0]->text().toInt();
         int cancelVolume=LineEdit[1]->text().toInt();
         int position=LineEdit[2]->text().toInt();
@@ -76,18 +77,21 @@ void NewWindow::show_newwindows(QStringList &headerText, std::vector<strategy_*>
         std::string id=LineEdit[6]->text().toStdString();
         if(LineEdit[6]->text().toStdString()=="")id="0";
         int status=LineEdit[7]->text().toInt();
+
         std::string orderID=LineEdit[8]->text().toStdString();
         if(LineEdit[8]->text().toStdString()=="")orderID="0";
-        std::string securityName=LineEdit[9]->text().toStdString();
-        if(LineEdit[9]->text().toStdString()=="")securityName="0";
-        int scoutBuyTriggerCashLim=LineEdit[10]->text().toInt();
-        float cond2Percent=LineEdit[11]->text().toFloat();
-        int cancelTriggerVolumeLarge=LineEdit[12]->text().toInt();
-        int scoutStatus=LineEdit[13]->text().toInt();
-        long long int lowerTimeLimit=LineEdit[14]->text().toLongLong();
-        long long int scoutMonitorDuration=LineEdit[15]->text().toLongLong();
-        long long int cond2HighTime=LineEdit[16]->text().toLongLong();
-        long long int cond2TrackDuration=LineEdit[17]->text().toLongLong();
+
+        std::string securityName=LineEdit[10]->text().toStdString();
+        if(LineEdit[10]->text().toStdString()=="")securityName="0";
+
+        int scoutBuyTriggerCashLim=LineEdit[12]->text().toInt();
+        float cond2Percent=LineEdit[14]->text().toFloat();
+        int cancelTriggerVolumeLarge=LineEdit[17]->text().toInt();
+        int scoutStatus=LineEdit[11]->text().toInt();
+        long long int lowerTimeLimit=LineEdit[9]->text().toLongLong();
+        long long int scoutMonitorDuration=LineEdit[13]->text().toLongLong();
+        long long int cond2HighTime=LineEdit[15]->text().toLongLong();
+        long long int cond2TrackDuration=LineEdit[16]->text().toLongLong();
         long long int cond4LowTime=LineEdit[18]->text().toLongLong();
         long long int cond4HighTime=LineEdit[19]->text().toLongLong();
         strategy_*st=new strategy_1(
@@ -114,7 +118,7 @@ void  NewWindow::create_table(QTableWidget *tableWidget,int x,strategy_1&s){
     tableWidget->setItem(x,1,item);
     // item=new QTableWidgetItem(QString::fromStdString(s.SecurityName),IndexSecurityName+1000);
     // tableWidget->setItem(x,IndexSecurityName,item);
-    item=new QTableWidgetItem(QString::fromStdString(s.ExchangeID=="1"?"SSZ":"SEZE"),IndexExchangeID+1000);
+    item=new QTableWidgetItem(QString::fromStdString(s.ExchangeID=="1"?"SSE":"SZSE"),IndexExchangeID+1000);
     tableWidget->setItem(x,2,item);
     item=new QTableWidgetItem(QString::number(s.BuyTriggerVolume),IndexBuyTriggerVolume+1000);
     tableWidget->setItem(x,3,item);

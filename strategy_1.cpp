@@ -67,6 +67,7 @@ void strategy_1::print(QStringList &List)
          << "大单大撤单起始时间" << QString::number(Cond4LowTime)
          << "大单大撤单结束时间" << QString::number(Cond4HighTime);
 }
+
 void strategy_1::print_chiness(QStringList &List)
 {
     List  << "交易所"
@@ -123,7 +124,7 @@ void strategy_1::sout()
 nlohmann::json strategy_1::to_json(std::string SecurityID){
     nlohmann::json data =  nlohmann::json{
         {"SecurityID", SecurityID},
-        {"ExchangeID", std::to_string((ExchangeID=="SSE"?1:2))},
+        {"ExchangeID", std::to_string(((ExchangeID=="SSE"||ExchangeID=="1")?1:2))},
         {"BuyTriggerVolume", BuyTriggerVolume},
         {"CancelVolume", CancelVolume},
         {"Position", Position},

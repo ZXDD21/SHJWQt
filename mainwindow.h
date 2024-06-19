@@ -68,6 +68,7 @@ private:
     void removestategy(json data);//修改策略信息
     std::vector<strategy_*>Strategy_;//策略模板
     std::string geturl();
+    void getFORMAL_ORDER_CANCELED(json event_to_send);
     void saveurl();
     void serializeStrategyToFile(const std::vector<strategy_*>& strategies, const std::string& filename);//写入文件
     std::vector<strategy_*> deserializeStrategyFromFile(const std::string& filename);//读取文件
@@ -76,8 +77,34 @@ private:
     void show_txt(strategy_*str);//展示策略按钮对应的文本信息
     void createTableRow(int x,strategy &s,int choice);//增加表格内容
     void createTableRow(std::unordered_map<std::string,std::vector<double>>&S,std::unordered_map<std::string,std::vector<std::string>>&S1);
+    void createTableRow(std::unordered_map<std::string, std::vector<int> > &S,std::vector<int>choice);
+    void createTableRow(std::unordered_map<std::string, std::vector<int> > &S,std::unordered_map<std::string,std::vector<std::string>>&S1,std::vector<int>choice);
     void setItem(int choice);//设置表格标题
     void getvolume(json event_to_send);
+
+    void getSCOUT_ORDER_SUCCESS(json event_to_send);
+    void getSCOUT_ORDER_CANCELED(json event_to_send);
+
+    void getFORMAL_ORDER_SUCCESS(json event_to_send);
+
+    void getSCOUT_CANCEL_SUCCESS(json event_to_send);
+
+    void getFORMAL_CANCEL_SUCCESS(json event_to_send);
+
+    void getSCOUT_ORDER_ERROR(json event_to_send);
+
+    void getFORMAL_ORDER_ERROR(json event_to_send);
+
+    void    getSCOUT_CANCEL_ERROR(json event_to_send);
+
+    void    getFORMAL_CANCEL_ERROR(json event_to_send);
+
+    void    getFORMAL_PART_TRADE(json event_to_send);
+
+    void    getFORMAL_FULLY_TRADE(json event_to_send);
+
+    void   getSCOUT_TRADE(json event_to_send);
+
 };
 
 

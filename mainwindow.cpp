@@ -292,9 +292,9 @@ void MainWindow::createTableRow(std::unordered_map<std::string, std::vector<int>
         auto it = S.find(ui->tableWidget->item(i,1)->text().toStdString());
         if(it!=S.end()){
             QTableWidgetItem *item;
-            for(int i=0;i<choice.size();i++){
-                item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][i]),1000+50+i);
-                ui->tableWidget->setItem(i,choice[i],item);
+            for(int j=0;j<choice.size();j++){
+                item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]),1000+50+j);
+                ui->tableWidget->setItem(i,choice[j],item);
             }
         }
     }
@@ -307,9 +307,9 @@ void MainWindow::createTableRow(std::unordered_map<std::string, std::vector<int>
         auto it = S.find(ui->tableWidget->item(i,1)->text().toStdString());
         if(it!=S.end()){
             QTableWidgetItem *item;
-            for(int i=0;i<choice.size()-1;i++){
-                item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][i]),1000+50+i);
-                ui->tableWidget->setItem(i,choice[i],item);
+            for(int j=0;j<choice.size()-1;j++){
+                item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]),1000+50+j);
+                ui->tableWidget->setItem(i,choice[j],item);
             }
             item=new QTableWidgetItem(QString::fromStdString(S1[ui->tableWidget->item(i,1)->text().toStdString()][0]),52+1000);
             ui->tableWidget->setItem(i,choice[choice.size()-1],item);

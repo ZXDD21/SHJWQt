@@ -192,11 +192,35 @@ void MainWindow::createTableRow(int x, strategy &s,int choice)
         //ui->tableWidget->setItem(x,IndexLowerTimeLimit,item);
         //item=new QTableWidgetItem(QString::number(s.MaxTriggerTimes),IndexMaxTriggerTimes+1000);
         //ui->tableWidget->setItem(x,IndexMaxTriggerTimes,item);
-        item=new QTableWidgetItem(QString::number(s.Status),IndexStatus+1000);
+        int sta=s.Status;
+        std::string Sta;
+        switch(sta){
+            case 0: Sta="运行中";break;
+            case 1: Sta="已委托";break;
+            case 2:Sta="已撤单";break;
+            case 3: Sta="全部成交";break;
+            case 4:Sta="已停止";break;
+            case 5: Sta="撤单异常";break;
+            case 6: Sta="已暂停";break;
+            case 7: Sta="部分成交";break;
+            case -1:Sta= "交易所拒单";break;
+        }
+
+            item=new QTableWidgetItem(QString::fromStdString(Sta),IndexStatus+1000);
         ui->tableWidget->setItem(x,8,item);
         //item=new QTableWidgetItem(QString::number(s.Count),IndexCount+1000);
         //ui->tableWidget->setItem(x,IndexCount,item);
-        item=new QTableWidgetItem(QString::number(s.ScoutStatus),IndexScoutStatus+1000);
+        int stb=s.ScoutStatus;
+        std::string Stb;
+        switch(stb){
+        case 0: Stb="运行中";break;
+        case 1: Stb="已委托";break;
+        case 2:Stb="已撤单";break;
+        case 3: Stb="撤单异常";break;
+        case 4:Stb="成交";break;
+        case -1:Stb= "交易所拒单";break;
+        }
+        item=new QTableWidgetItem(QString::fromStdString(Stb),IndexScoutStatus+1000);
         ui->tableWidget->setItem(x,9,item);
         //item=new QTableWidgetItem(QString::number(s.LowerTimeLimit),IndexLowerTimeLimit+1000);
         //ui->tableWidget->setItem(x,10,item);
@@ -276,9 +300,9 @@ void MainWindow::createTableRow(std::unordered_map<std::string, std::vector<doub
     for(int i=0;i<ui->tableWidget->rowCount();i++){
         auto it = S.find(ui->tableWidget->item(i,1)->text().toStdString());
         if(it!=S.end()){
-            QTableWidgetItem *item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][0]/1000000)+"百万",1000+50);
+            QTableWidgetItem *item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][0]/10000)+"万",1000+50);
             ui->tableWidget->setItem(i,4,item);
-            item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][1]/1000000)+"百万",51+1000);
+            item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][1]/10000)+"万",51+1000);
             ui->tableWidget->setItem(i,5,item);
             //item=new QTableWidgetItem(QString::fromStdString(S1[ui->tableWidget->item(i,1)->text().toStdString()][0]),52+1000);
             //ui->tableWidget->setItem(i,10,item);
@@ -293,8 +317,42 @@ void MainWindow::createTableRow(std::unordered_map<std::string, std::vector<int>
         if(it!=S.end()){
             QTableWidgetItem *item;
             for(int j=0;j<choice.size();j++){
-                item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]),1000+50+j);
-                ui->tableWidget->setItem(i,choice[j],item);
+                if(choice[j]==8){
+                    QString stab=QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]);
+                    int sta=stab.toInt();
+                    std::string Sta;
+                    switch(sta){
+                    case 0: Sta="运行中";break;
+                    case 1: Sta="已委托";break;
+                    case 2:Sta="已撤单";break;
+                    case 3: Sta="全部成交";break;
+                    case 4:Sta="已停止";break;
+                    case 5: Sta="撤单异常";break;
+                    case 6: Sta="已暂停";break;
+                    case 7: Sta="部分成交";break;
+                    case -1:Sta= "交易所拒单";break;
+                    }
+                    item=new QTableWidgetItem(QString::fromStdString(Sta),1000+50+j);
+                }
+                else if(choice[j]==9){
+                    QString stab=QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]);
+                    int stb=stab.toInt();
+                    std::string Stb;
+                    switch(stb){
+                    case 0: Stb="运行中";break;
+                    case 1: Stb="已委托";break;
+                    case 2:Stb="已撤单";break;
+                    case 3: Stb="撤单异常";break;
+                    case 4:Stb="成交";break;
+                    case -1:Stb= "交易所拒单";break;
+                    }
+                    item=new QTableWidgetItem(QString::fromStdString(Stb),1000+50+j);
+                }
+                else{
+                    item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]),1000+50+j);
+                    ui->tableWidget->setItem(i,choice[j],item);
+                }
+
             }
         }
     }
@@ -308,8 +366,41 @@ void MainWindow::createTableRow(std::unordered_map<std::string, std::vector<int>
         if(it!=S.end()){
             QTableWidgetItem *item;
             for(int j=0;j<choice.size()-1;j++){
-                item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]),1000+50+j);
-                ui->tableWidget->setItem(i,choice[j],item);
+                if(choice[j]==8){
+                    QString stab=QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]);
+                    int sta=stab.toInt();
+                    std::string Sta;
+                    switch(sta){
+                    case 0: Sta="运行中";break;
+                    case 1: Sta="已委托";break;
+                    case 2:Sta="已撤单";break;
+                    case 3: Sta="全部成交";break;
+                    case 4:Sta="已停止";break;
+                    case 5: Sta="撤单异常";break;
+                    case 6: Sta="已暂停";break;
+                    case 7: Sta="部分成交";break;
+                    case -1:Sta= "交易所拒单";break;
+                    }
+                    item=new QTableWidgetItem(QString::fromStdString(Sta),1000+50+j);
+                }
+                else if(choice[j]==9){
+                    QString stab=QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]);
+                    int stb=stab.toInt();
+                    std::string Stb;
+                    switch(stb){
+                    case 0: Stb="运行中";break;
+                    case 1: Stb="已委托";break;
+                    case 2:Stb="已撤单";break;
+                    case 3: Stb="撤单异常";break;
+                    case 4:Stb="成交";break;
+                    case -1:Stb= "交易所拒单";break;
+                    }
+                    item=new QTableWidgetItem(QString::fromStdString(Stb),1000+50+j);
+                }
+                else{
+                    item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]),1000+50+j);
+                    ui->tableWidget->setItem(i,choice[j],item);
+                }
             }
             item=new QTableWidgetItem(QString::fromStdString(S1[ui->tableWidget->item(i,1)->text().toStdString()][0]),52+1000);
             ui->tableWidget->setItem(i,choice[choice.size()-1],item);

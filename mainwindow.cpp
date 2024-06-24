@@ -190,8 +190,10 @@ void MainWindow::createTableRow(int x, strategy &s,int choice)
         //ui->tableWidget->setItem(x,IndexOrderID,item);
         //item=new QTableWidgetItem(QString::number(s.LowerTimeLimit),IndexLowerTimeLimit+1000);
         //ui->tableWidget->setItem(x,IndexLowerTimeLimit,item);
-        //item=new QTableWidgetItem(QString::number(s.MaxTriggerTimes),IndexMaxTriggerTimes+1000);
-        //ui->tableWidget->setItem(x,IndexMaxTriggerTimes,item);
+        item=new QTableWidgetItem(QString::number(s.MaxTriggerTimes),IndexMaxTriggerTimes+1000);
+        ui->tableWidget->setItem(x,11,item);
+        item=new  QTableWidgetItem(QString::fromStdString(s.FormalOrderAcptTime),IndexMaxTriggerTimes+1000);
+        ui->tableWidget->setItem(x,10,item);
         int sta=s.Status;
         std::string Sta;
         switch(sta){
@@ -888,11 +890,12 @@ void MainWindow::getstrategy(json data)
         int canTrigVolLrg = item["CancelTriggerVolumeLarge"].get<int>();
         long long int cond4LowTime = item["Cond4LowTime"].get<long long int>();
         long long int cond4HighTime = item["Cond4HighTime"].get<long long int>();
+        std::string formal=item["FormalOrderAcptTime"].get<std::string>();
         strategy newStrategy(
             secID, exID, ordID, secName, stratID,
             buyVol, canVol, pos, targPos, currPos,
             lowTimeLim, maxTrigTimes, stat, cnt,
-            scoutStat, scoutBuyTrigCashLim, scoutMonDur,cond2Perc,cond2HighTime,cond2TrackDur, canTrigVolLrg,cond4LowTime,cond4HighTime
+            scoutStat, scoutBuyTrigCashLim, scoutMonDur,cond2Perc,cond2HighTime,cond2TrackDur, canTrigVolLrg,cond4LowTime,cond4HighTime,formal
             );
         Strategy.push_back(newStrategy);
     }
@@ -926,11 +929,12 @@ void MainWindow:: removestategy(json data){
         int canTrigVolLrg = item["CancelTriggerVolumeLarge"].get<int>();
         long long int cond4LowTime = item["Cond4LowTime"].get<long long int>();
         long long int cond4HighTime = item["Cond4HighTime"].get<long long int>();
+        std::string formal=item["FormalOrderAcptTime"].get<std::string>();
         strategy newStrategy(
             secID, exID, ordID, secName, stratID,
             buyVol, canVol, pos, targPos, currPos,
             lowTimeLim, maxTrigTimes, stat, cnt,
-            scoutStat, scoutBuyTrigCashLim, scoutMonDur,cond2Perc,cond2HighTime,cond2TrackDur, canTrigVolLrg,cond4LowTime,cond4HighTime
+            scoutStat, scoutBuyTrigCashLim, scoutMonDur,cond2Perc,cond2HighTime,cond2TrackDur, canTrigVolLrg,cond4LowTime,cond4HighTime,formal
             );
         removeStrategy.push_back(newStrategy);
     }

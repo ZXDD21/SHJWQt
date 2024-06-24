@@ -9,6 +9,7 @@ public:
     std::string OrderID;//策略委托
     std::string SecurityName;//股票名称
     std::string ID;//策略编号 sendto:Int
+    std::string FormalOrderAcptTime;
     int BuyTriggerVolume;//封单额
     int CancelVolume;//撤单额
     int Position;//目标仓位 元
@@ -35,14 +36,14 @@ public:
         int lowTimeLim, int maxTrigTimes, int stat, int cnt,
         int scoutStat, int scoutBuyTrigCashLim, long long int scoutMonDur,
         float cond2Perc, long long int cond2HighTime, long long int cond2TrackDur,
-        int canTrigVolLrg, long long int cond4LowTime, long long int cond4HighTime)
+        int canTrigVolLrg, long long int cond4LowTime, long long int cond4HighTime,std::string& formalOrderAcptTime)
         : SecurityID(secID), ExchangeID(exID), OrderID(ordID), SecurityName(secName),
         ID(stratID), BuyTriggerVolume(buyVol), CancelVolume(canVol), Position(pos),
         TargetPosition(targPos), CurrPosition(currPos), LowerTimeLimit(lowTimeLim),
         MaxTriggerTimes(maxTrigTimes), Status(stat), Count(cnt), ScoutStatus(scoutStat),
         ScoutBuyTriggerCashLim(scoutBuyTrigCashLim), ScoutMonitorDuration(scoutMonDur),
         Cond2Percent(cond2Perc), Cond2HighTime(cond2HighTime), Cond2TrackDuration(cond2TrackDur),
-        CancelTriggerVolumeLarge(canTrigVolLrg), Cond4LowTime(cond4LowTime), Cond4HighTime(cond4HighTime) {}
+        CancelTriggerVolumeLarge(canTrigVolLrg), Cond4LowTime(cond4LowTime), Cond4HighTime(cond4HighTime),FormalOrderAcptTime(formalOrderAcptTime) {}
 
 
     // 其他成员函数...

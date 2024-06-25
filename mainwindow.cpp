@@ -183,19 +183,19 @@ void MainWindow::createTableRow(int x, strategy &s,int choice)
         //item=new QTableWidgetItem(QString::number(s.CancelVolume),IndexCancelVolume+1000);
         //ui->tableWidget->setItem(x,IndexCancelVolume,item);
         item=new QTableWidgetItem(QString::number(s.TargetPosition),IndexTargetPosition+1000);
-        ui->tableWidget->setItem(x,6,item);
-        item=new QTableWidgetItem(QString::number(s.CurrPosition),IndexCurrPosition+1000);
         ui->tableWidget->setItem(x,7,item);
+        item=new QTableWidgetItem(QString::number(s.CurrPosition),IndexCurrPosition+1000);
+        ui->tableWidget->setItem(x,8,item);
         //item=new QTableWidgetItem(QString::fromStdString(s.OrderID),IndexOrderID+1000);
         //ui->tableWidget->setItem(x,IndexOrderID,item);
         //item=new QTableWidgetItem(QString::number(s.LowerTimeLimit),IndexLowerTimeLimit+1000);
         //ui->tableWidget->setItem(x,IndexLowerTimeLimit,item);
         item=new QTableWidgetItem(QString::number(s.MaxTriggerTimes),IndexMaxTriggerTimes+1000);
-        ui->tableWidget->setItem(x,11,item);
-        item=new  QTableWidgetItem(QString::fromStdString(s.FormalOrderAcptTime),IndexMaxTriggerTimes+1000);
-        ui->tableWidget->setItem(x,10,item);
-        item=new QTableWidgetItem(QString::number(s.BuyTriggerVolume),IndexBuyTriggerVolume+1000);
         ui->tableWidget->setItem(x,12,item);
+        item=new  QTableWidgetItem(QString::fromStdString(s.FormalOrderAcptTime),IndexMaxTriggerTimes+1000);
+        ui->tableWidget->setItem(x,11,item);
+        item=new QTableWidgetItem(QString::number(s.BuyTriggerVolume),IndexBuyTriggerVolume+1000);
+        ui->tableWidget->setItem(x,4,item);
         int sta=s.Status;
         std::string Sta;
         switch(sta){
@@ -211,7 +211,7 @@ void MainWindow::createTableRow(int x, strategy &s,int choice)
         }
 
             item=new QTableWidgetItem(QString::fromStdString(Sta),IndexStatus+1000);
-        ui->tableWidget->setItem(x,8,item);
+        ui->tableWidget->setItem(x,9,item);
         //item=new QTableWidgetItem(QString::number(s.Count),IndexCount+1000);
         //ui->tableWidget->setItem(x,IndexCount,item);
         int stb=s.ScoutStatus;
@@ -225,7 +225,7 @@ void MainWindow::createTableRow(int x, strategy &s,int choice)
         case -1:Stb= "交易所拒单";break;
         }
         item=new QTableWidgetItem(QString::fromStdString(Stb),IndexScoutStatus+1000);
-        ui->tableWidget->setItem(x,9,item);
+        ui->tableWidget->setItem(x,10,item);
         //item=new QTableWidgetItem(QString::number(s.LowerTimeLimit),IndexLowerTimeLimit+1000);
         //ui->tableWidget->setItem(x,10,item);
         //item=new QTableWidgetItem(QString::number(s.ScoutBuyTriggerCashLim),IndexScoutBuyTriggerCashLim+1000);
@@ -305,9 +305,9 @@ void MainWindow::createTableRow(std::unordered_map<std::string, std::vector<doub
         auto it = S.find(ui->tableWidget->item(i,1)->text().toStdString());
         if(it!=S.end()){
             QTableWidgetItem *item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][0]/10000)+"万",1000+50);
-            ui->tableWidget->setItem(i,4,item);
-            item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][1]/10000)+"万",51+1000);
             ui->tableWidget->setItem(i,5,item);
+            item=new QTableWidgetItem(QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][1]/10000)+"万",51+1000);
+            ui->tableWidget->setItem(i,6,item);
             //item=new QTableWidgetItem(QString::fromStdString(S1[ui->tableWidget->item(i,1)->text().toStdString()][0]),52+1000);
             //ui->tableWidget->setItem(i,10,item);
         }
@@ -321,7 +321,7 @@ void MainWindow::createTableRow(std::unordered_map<std::string, std::vector<int>
         if(it!=S.end()){
             QTableWidgetItem *item;
             for(int j=0;j<choice.size();j++){
-                if(choice[j]==8){
+                if(choice[j]==9){
                     QString stab=QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]);
                     int sta=stab.toInt();
                     std::string Sta;
@@ -339,7 +339,7 @@ void MainWindow::createTableRow(std::unordered_map<std::string, std::vector<int>
                     item=new QTableWidgetItem(QString::fromStdString(Sta),1000+50+j);
                      ui->tableWidget->setItem(i,choice[j],item);
                 }
-                else if(choice[j]==9){
+                else if(choice[j]==10){
                     QString stab=QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]);
                     int stb=stab.toInt();
                     std::string Stb;
@@ -372,7 +372,7 @@ void MainWindow::createTableRow(std::unordered_map<std::string, std::vector<int>
         if(it!=S.end()){
             QTableWidgetItem *item;
             for(int j=0;j<choice.size()-1;j++){
-                if(choice[j]==8){
+                if(choice[j]==9){
                     QString stab=QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]);
                     int sta=stab.toInt();
                     std::string Sta;
@@ -390,7 +390,7 @@ void MainWindow::createTableRow(std::unordered_map<std::string, std::vector<int>
                     item=new QTableWidgetItem(QString::fromStdString(Sta),1000+50+j);
                      ui->tableWidget->setItem(i,choice[j],item);
                 }
-                else if(choice[j]==9){
+                else if(choice[j]==10){
                     QString stab=QString::number(S[ui->tableWidget->item(i,1)->text().toStdString()][j]);
                     int stb=stab.toInt();
                     std::string Stb;
@@ -578,7 +578,7 @@ void MainWindow::setItem(int choice)//设置表格标题
     QStringList headerText;
 
     if(choice==0){
-        headerText<<"选中"<<"策略编号"<<"股票代码"<< "股票名称"<<"单前金额（万）"<<"封单金额(万)"<<"目标仓位（股)"<<"已买仓位"<<"正式单状态"<<"保护单状态"<<"委托时间"<<"触发次数"<<"触发金额";
+        headerText<<"选中"<<"策略编号"<<"股票代码"<< "股票名称"<<"触发金额"<<"单前金额（万）"<<"封单金额(万)"<<"目标仓位（股)"<<"已买仓位"<<"正式单状态"<<"保护单状态"<<"委托时间"<<"触发次数";
         ui->tableWidget->setColumnCount(13);
         for(int i=0;i<ui->tableWidget->columnCount();i++){
             headerItem=new QTableWidgetItem(headerText.at(i));
@@ -970,10 +970,10 @@ void MainWindow::getFORMAL_ORDER_SUCCESS(json event_to_send){
     S[event_to_send["S_id"].get<std::string>()]=data;
     S1[event_to_send["S_id"].get<std::string>()]=data1;
     std::vector<int>choice;
-    choice.push_back(11);
-    choice.push_back(8);
+    choice.push_back(12);
     choice.push_back(9);
     choice.push_back(10);
+    choice.push_back(11);
     createTableRow(S,S1,choice);
 }
 
@@ -986,8 +986,8 @@ void MainWindow::getFORMAL_ORDER_CANCELED(json event_to_send)
     data.push_back(event_to_send["formal_status"].get<int>());
     S[event_to_send["S_id"].get<std::string>()]=data;
     std::vector<int>choice;
-    choice.push_back(11);
-    choice.push_back(8);
+    choice.push_back(12);
+    choice.push_back(9);
     createTableRow(S,choice);
 }
 void MainWindow::getSCOUT_ORDER_SUCCESS(json event_to_send){
@@ -996,7 +996,7 @@ void MainWindow::getSCOUT_ORDER_SUCCESS(json event_to_send){
     data.push_back(event_to_send["scout_status"].get<int>());
     S[event_to_send["S_id"].get<std::string>()]=data;
     std::vector<int>choice;
-    choice.push_back(9);
+    choice.push_back(10);
     createTableRow(S,choice);
 }
 
@@ -1010,7 +1010,7 @@ void MainWindow::getSCOUT_ORDER_CANCELED(json event_to_send)
     S[event_to_send["S_id"].get<std::string>()]=data;
     std::vector<int>choice;
     //choice.push_back(11);
-    choice.push_back(9);
+    choice.push_back(10);
     createTableRow(S,choice);
 }
 
@@ -1021,7 +1021,7 @@ void MainWindow::getSCOUT_CANCEL_SUCCESS(json event_to_send){
     data.push_back(event_to_send["scout_status"].get<int>());
     S[event_to_send["S_id"].get<std::string>()]=data;
     std::vector<int>choice;
-    choice.push_back(9);
+    choice.push_back(10);
     createTableRow(S,choice);
 }
 
@@ -1033,8 +1033,8 @@ void MainWindow::getFORMAL_CANCEL_SUCCESS(json event_to_send){
     data.push_back(event_to_send["scout_status"].get<int>());
     S[event_to_send["S_id"].get<std::string>()]=data;
     std::vector<int>choice;
-    choice.push_back(11);
-    choice.push_back(9);
+    choice.push_back(12);
+    choice.push_back(10);
     createTableRow(S,choice);
 }
 
@@ -1044,7 +1044,7 @@ void MainWindow::getSCOUT_ORDER_ERROR(json event_to_send){
     data.push_back(event_to_send["formal_status"].get<int>());
     S[event_to_send["S_id"].get<std::string>()]=data;
     std::vector<int>choice;
-    choice.push_back(8);
+    choice.push_back(9);
     createTableRow(S,choice);
 }
 
@@ -1057,8 +1057,8 @@ void    MainWindow::getFORMAL_ORDER_ERROR(json event_to_send){
 
     S[event_to_send["S_id"].get<std::string>()]=data;
     std::vector<int>choice;
-    choice.push_back(11);
-    choice.push_back(9);
+    choice.push_back(12);
+    choice.push_back(10);
     createTableRow(S,choice);
 }
 
@@ -1068,7 +1068,7 @@ void    MainWindow::getSCOUT_CANCEL_ERROR(json event_to_send){
     data.push_back(event_to_send["formal_status"].get<int>());
     S[event_to_send["S_id"].get<std::string>()]=data;
     std::vector<int>choice;
-    choice.push_back(8);
+    choice.push_back(9);
     createTableRow(S,choice);
 }
 
@@ -1081,9 +1081,9 @@ void    MainWindow::getFORMAL_CANCEL_ERROR(json event_to_send){
 
     S[event_to_send["S_id"].get<std::string>()]=data;
     std::vector<int>choice;
-    choice.push_back(11);
+    choice.push_back(12);
 
-    choice.push_back(9);
+    choice.push_back(10);
     createTableRow(S,choice);
 }
 
@@ -1095,8 +1095,8 @@ void    MainWindow::getFORMAL_PART_TRADE(json event_to_send){
     data.push_back(event_to_send["formal_status"].get<int>());
     S[event_to_send["S_id"].get<std::string>()]=data;
     std::vector<int>choice;
-    choice.push_back(11);
-    choice.push_back(8);
+    choice.push_back(12);
+    choice.push_back(9);
     createTableRow(S,choice);
 }
 
@@ -1109,8 +1109,8 @@ void    MainWindow::getFORMAL_FULLY_TRADE(json event_to_send){
 
     S[event_to_send["S_id"].get<std::string>()]=data;
     std::vector<int>choice;
-    choice.push_back(11);
-    choice.push_back(8);
+    choice.push_back(12);
+    choice.push_back(9);
     createTableRow(S,choice);
 }
 
@@ -1120,7 +1120,7 @@ void   MainWindow::getSCOUT_TRADE(json event_to_send){
     data.push_back(event_to_send["scout_status"].get<int>());
     S[event_to_send["S_id"].get<std::string>()]=data;
     std::vector<int>choice;
-    choice.push_back(9);
+    choice.push_back(10);
     createTableRow(S,choice);
 }
 void MainWindow::saveurl()

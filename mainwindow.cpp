@@ -1,72 +1,5 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-// void MainWindow::createChart() {
-//     // 创建图表视图
-//     chartView = new QChartView(this);
-//     // 创建图表
-//     chart = new QChart();
-//     chart->setTitle("000001股票折现图");
-
-//     // 将图表添加到图表视图
-//     chartView->setChart(chart);
-//     // 设置图表视图为窗口的中心部件
-//     this->setCentralWidget(chartView);
-
-//     // 创建折线序列
-//     series0 = new QLineSeries();
-//     series1 = new QLineSeries();
-//     series0->setName("价格曲线 曲线");
-//     series1->setName("数量 曲线");
-
-//     // 将序列添加到图表
-//     chart->addSeries(series0);
-//     chart->addSeries(series1);
-
-//     // 序列添加数值
-//     qreal t = 0;
-//     srand(time(NULL));
-//     for(int i=0;i<size;i++){
-//         int k=0;
-//         series0->append(t,k);
-//         int w=0;
-//         series1->append(t,w);
-//         t++;
-//     }
-//     // 创建坐标轴
-//     axisX = new QValueAxis(); // X 轴
-//     axisX->setRange(0, size);
-//     axisX->setTitleText("X轴name");
-
-//     axisY0 = new QValueAxis(); // Y 轴
-//     axisY0->setRange(0,30);
-//     axisY0->setTitleText("价格");
-//     axisY1 = new QValueAxis(); // Y 轴
-//     axisY1->setRange(0,10000);
-//     axisY1->setTitleText("数量");
-
-//     //为序列设置坐标轴
-//     chart->setAxisX(axisX, series0);
-//     chart->setAxisY(axisY0, series0);
-//     chart->setAxisX(axisX, series1);
-//     chart->setAxisY(axisY1, series1);
-// }
-// void MainWindow::creat() {
-//     int k=CL.ans.size();
-//     for(int i=0;i<size;i++){
-//         series0->replace(i,series0->at(i).x()-k,series0->at(i).y());
-//         series1->replace(i,series1->at(i).x()-k,series1->at(i).y());
-//     }
-//     for(int i=0;i<k;i++){
-//         series0->remove(0);
-//         series1->remove(0);
-//     }
-//     for(int i=size-k;i<size;i++){
-//         std::vector<std::string> S=CL.ans.front();
-//         series0->append(i,stoi(S[0]));
-//         series1->append(i,stoi(S[1]));
-//         CL.ans.pop();
-//     }
-// }
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),CL()
@@ -74,18 +7,11 @@ MainWindow::MainWindow(QWidget *parent)
      CL.url=geturl();
     std::thread tha(std::bind(&MainWindow::ClientRun,this));
     Strategy_=deserializeStrategyFromFile(FILE);
-
+    logger=new DailyLogger("LOG/");
     Sleep(3000);
     ui->setupUi(this);
     showstrategy_();
     ui->label->setText(QString::fromStdString("WWY策略管理系统   "+CL.url));
-    /*  QCheckBox *checkBox__0;
-    checkBox__0 = new QCheckBox(ui->groupBox_3);
-    checkBox__0->setObjectName("checkBox__0");
-    ui->gridLayout_3->addWidget( checkBox__0, 10, 0, 1, 1);
- */
-    //QObject::connect(checkBox,SIGNAL(clicked),this,SLOT(onShowNewWindow));
-    //CL.send(getdata,nullptr);
     tha.detach();
 }
 MainWindow::~MainWindow()
@@ -99,10 +25,9 @@ void MainWindow::ClientRun(){
     this->CL.Client_Init(std::function<void(void*)>(std::bind(&MainWindow::recive,this,std::placeholders::_1)));
 }
 void MainWindow::recive(void*ptr){//接受函数,当收到json包且有type类型时，自动调用
-
     json event_to_send = *(json*)(ptr);
+    logger->log(get_now_time()+" recive "+event_to_send["type"].get<std::string>());
     std::string type = event_to_send["type"].get<std::string>();
-    std::cout<<event_to_send<<std::endl;
     if(type=="check_runningStrategy"){
         getstrategy(event_to_send);
     }
@@ -115,7 +40,6 @@ void MainWindow::recive(void*ptr){//接受函数,当收到json包且有type类�
     }
     else if(type=="FORMAL_ORDER_CANCELED"){
         if(uiHasBeenDisplayed==false)return;
-        std::cout<<event_to_send<<std::endl;
         getFORMAL_ORDER_CANCELED(event_to_send);
     }
 
@@ -129,7 +53,6 @@ void MainWindow::recive(void*ptr){//接受函数,当收到json包且有type类�
     }
     else if (type == "FORMAL_ORDER_SUCCESS") {
         if(uiHasBeenDisplayed==false)return;
-        std::cout<<event_to_send<<std::endl;
         getFORMAL_ORDER_SUCCESS(event_to_send);
     } else if (type == "SCOUT_CANCEL_SUCCESS") {
         if(uiHasBeenDisplayed==false)return;
@@ -159,7 +82,7 @@ void MainWindow::recive(void*ptr){//接受函数,当收到json包且有type类�
         if(uiHasBeenDisplayed==false)return;
         getSCOUT_TRADE(event_to_send);
     } else {
-        std::cout << "Unknown option" << std::endl;
+        logger->log(get_now_time()+"recice not have this option");
     }
 }
 void MainWindow::createTableRow(int x, strategy &s,int choice)
@@ -418,7 +341,7 @@ void MainWindow::createTableRow(std::unordered_map<std::string, std::vector<int>
 void  MainWindow::serializeStrategyToFile(const std::vector<strategy_*>& strategies, const std::string& filename) {//存入文件
     std::ofstream file(filename);
     if (!file.is_open()) {
-        std::cerr << "无法打开文件进行写入" << std::endl;
+        logger->log(get_now_time()+"file open err");
         return;
     }
     for (const auto& strategy : strategies) {
@@ -506,6 +429,7 @@ void MainWindow::showstrategy_()//展示获取策略
                         son_message["payload"].push_back(this->Strategy_[i]->to_json(edit0->text().toStdString()));
                     }
                 }
+                logger->log(get_now_time()+" send "+son_message["request_type"].get<std::string>());
                 CL.send(son_message);
             });
             newWindow->show();
@@ -519,6 +443,7 @@ void MainWindow::showstrategy_()//展示获取策略
                     son_message["payload"].push_back(this->Strategy_[i]->to_json(edit0->text().toStdString()));
                 }
             }
+            logger->log(get_now_time()+" send "+son_message["request_type"].get<std::string>());
             CL.send(son_message);
         }
 
@@ -665,6 +590,7 @@ void MainWindow::on_refresh_table_clicked()
     json son_message;
     son_message["request_type"]="check_running_strategy";
     son_message["payload"]=nlohmann::json::array();
+    logger->log(get_now_time()+" send "+son_message["request_type"].get<std::string>());
     CL.send(son_message);
 }
 void MainWindow::on_pushButton_3_clicked()//发送remove包
@@ -688,6 +614,7 @@ void MainWindow::on_pushButton_3_clicked()//发送remove包
             }
         }
     }
+    logger->log(get_now_time()+" send "+son_message["request_type"].get<std::string>());
     CL.send(son_message);
 }
 
@@ -1138,6 +1065,8 @@ void MainWindow::on_refresh_table_3_clicked()
     json son_message;
     son_message["request_type"]="check_removed_strategy";
     son_message["payload"]=nlohmann::json::array();
+    logger->log(get_now_time()+" send "+son_message["request_type"].get<std::string>());
+
     CL.send(son_message);
 }
 void MainWindow::on_pushButton_28_clicked()
@@ -1272,5 +1201,22 @@ void MainWindow::on_action_IP_triggered()
                  return CL.url;
     });
     newWindow->show();
+}
+
+std::string MainWindow::get_now_time()
+{
+    auto now = std::chrono::system_clock::now();
+    // 转换为 time_t 类型
+    std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+    // 转换为 tm 结构，以获取本地时间
+    std::tm now_tm = *std::localtime(&now_c);
+
+    // 输出小时、分钟和秒
+    std::stringstream ss;
+    ss
+              << std::setfill('0') << std::setw(2) << now_tm.tm_hour << ":"
+              << std::setfill('0') << std::setw(2) << now_tm.tm_min << ":"
+              << std::setfill('0') << std::setw(2) << now_tm.tm_sec <<" ";
+    return ss.str();
 }
 

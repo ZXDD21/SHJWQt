@@ -12,6 +12,7 @@
 #include "strategy_1.h"
 #include <QDate>
 #include "strategy.h"
+#include "log.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -48,6 +49,7 @@ private slots:
     void on_action_IP_triggered();
 
 private:
+    static std::string get_now_time();
     Ui::MainWindow *ui;
     Client CL;//服务器
     QChartView *chartView;//图表视图
@@ -57,6 +59,7 @@ private:
     QValueAxis *axisX;//X轴
     QValueAxis *axisY0; //Y轴价格轴
     QValueAxis *axisY1;//Y1轴数量轴
+    DailyLogger *logger;
     bool uiHasBeenDisplayed=false;
     const int size=100;//X轴长度显示
     const std::string FILE="test.txt";

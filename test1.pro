@@ -34,6 +34,7 @@ release {
 # Source files
 SOURCES += \
     client.cpp \
+    log.cpp \
     main.cpp \
     mainwindow.cpp \
     newwindow.cpp \
@@ -44,6 +45,7 @@ SOURCES += \
 # Header files
 HEADERS += \
     client.h \
+    log.h \
     mainwindow.h \
     newwindow.h \
     strategy.h \

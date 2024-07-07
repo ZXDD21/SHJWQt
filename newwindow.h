@@ -6,7 +6,6 @@
 //#include <QtChartsVersion>
 #include "strategy_.h"
 #include "strategy_1.h"
-#include "strategy.h"
 #include "client.h"
 #include <functional>
 QT_BEGIN_NAMESPACE

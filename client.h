@@ -60,40 +60,5 @@ private:
     websocketpp::connection_hdl hdl;//服务器连接句柄
     std::function<void(void*)>fc;//回调函数包装类
 };
-// class strategy_{
-// public:
-//     strategy_(){}
-//     ~strategy_(){}
-// };
-// class strategy_1:public strategy_{
-//     std::string SecurityID;//证券代码
-//     std::string ExchangeID;//交易所
-//     int BuyTriggerVolume;//封单额
-//     int CancelVolume;//撤单额
-//     int DBVolume;//打板金额
-//     int ordercancellationcount;//撤单金额
-//     int MaxTriggerTimes;//大单延迟时间
-//     int ScoutBuyTriggerCashLim;//保护单触发金额 nullptr
-//     int minMonitorTimes;//小单监控时间
-//     int Cond2Percent;//撤单动量比例 nullptr
-//     int Cond2HighTime;//撤单动量监控时间 nullptr
-//     int Cond2TrackDuration;//撤单动量时间区间 nullptr
-//     int  MaxBuyTriggerVolume;//大单大封单金额
-// };
-// struct inputstrategy{
-//     std::string SecurityID;//证券代码
-//     std::string ExchangeID;//交易所
-//     int BuyTriggerVolume;//封单额
-//     int CancelVolume;//撤单额
-//     int DBVolume;//打板金额
-//     int ordercancellationcount;//撤单金额
-//     int MaxTriggerTimes;//大单延迟时间
-//     int ScoutBuyTriggerCashLim;//保护单触发金额 nullptr
-//     int minMonitorTimes;//小单监控时间
-//     int Cond2Percent;//撤单动量比例 nullptr
-//     int Cond2HighTime;//撤单动量监控时间 nullptr
-//     int Cond2TrackDuration;//撤单动量时间区间 nullptr
-//     int  MaxBuyTriggerVolume;//大单大封单金额
-// };
 
 #endif // CLIENT_H

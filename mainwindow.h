@@ -6,6 +6,7 @@
 //#include <QtChartsVersion>
 #include <string.h>
 #include <string>
+#include <memory>
 #include "client.h"
 #include <fstream>//文件操作
 #include "newwindow.h"
@@ -13,6 +14,7 @@
 #include <QDate>
 #include "strategy.h"
 #include "log.h"
+#include "event.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -31,7 +33,7 @@ public:
     void ClientRun();//开始运行服务器
     //回调函数
     void  InittableWidget(int choice);//初始化策略信息
-
+    static std::unordered_map<std::string, int> dataMap;
 private slots:
     void on_refresh_table_clicked();
     void on_pushButton_3_clicked();
@@ -64,6 +66,7 @@ private:
     const int size=100;//X轴长度显示
     const std::string FILE="test.txt";
     std::list<strategy>Strategy;//策略
+    std::unordered_map<std::string,Event>event_map;
     std::list<strategy>removeStrategy;//删除策略
     const int min_strategy_size=10;//前17个没法删除
     void getstrategy(json data);//获取策略信息
@@ -79,12 +82,11 @@ private:
     void showstrategy_();//展示策略按钮
     void show_txt(strategy_*str);//展示策略按钮对应的文本信息
     void createTableRow(int x,strategy &s,int choice);//增加表格内容
-    void createTableRow(std::unordered_map<std::string,std::vector<double>>&S,std::unordered_map<std::string,std::vector<std::string>>&S1);
-    void createTableRow(std::unordered_map<std::string, std::vector<int> > &S,std::vector<int>choice);
-    void createTableRow(std::unordered_map<std::string, std::vector<int> > &S,std::unordered_map<std::string,std::vector<std::string>>&S1,std::vector<int>choice);
+    void createTableRow(std::vector<int>choice);
+
     void setItem(int choice);//设置表格标题
     void getvolume(json event_to_send);
-
+    void updata_event_map(json &event_to_send,std::vector<int>choice);
     void getSCOUT_ORDER_SUCCESS(json event_to_send);
     void getSCOUT_ORDER_CANCELED(json event_to_send);
 
@@ -109,6 +111,5 @@ private:
     void   getSCOUT_TRADE(json event_to_send);
 
 };
-
 
 #endif // MAINWINDOW_H

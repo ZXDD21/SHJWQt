@@ -1,0 +1,150 @@
+12:04:09  send check_running_strategy
+12:04:09  send check_removed_strategy
+12:10:37 client start
+12:10:41 client start successful
+12:10:42 file save successful
+12:10:42 ip file save successful
+12:22:39 deserializeStrategyFromFile
+12:22:39 client newwork start run
+12:22:42 showstrategy
+12:22:42 client start successful
+12:22:45 serializeStrategyToFile
+12:22:45 file save successful
+12:22:45 ip file save successful
+12:31:48 log init successful
+12:31:48 open ip_file and change ip
+12:31:48 deserializeStrategyFromFile
+12:31:48 start thread to run  newwork
+12:31:51 client start successful
+12:32:02 serializeStrategyToFile
+12:32:02 file save successful
+12:32:02 ip file save successful
+
+
+12:35:28 log init successful
+12:35:28 open ip_file and change ip
+12:35:28 open file to get strategy
+12:35:28 start thread to run  newwork
+12:35:28 open file to get strategy successful
+12:35:32 client start successful
+12:35:34  send check_running_strategy
+
+
+12:40:29 log init successful
+12:40:29 open ip_file and change ip
+12:40:29 open file to get strategy
+12:40:29 start thread to run  newwork
+12:40:29 open file to get strategy successful
+12:40:32 client start successful
+12:42:02 open file to save strategy
+12:42:02 file save successful
+12:42:02 ip file save successful
+
+
+12:45:12 log init successful
+12:45:12 open ip_file and change ip
+12:45:12 open file to get strategy
+12:45:12 start thread to run  newwork
+12:45:12 open file to get strategy successful
+12:45:15 client start successful
+12:45:23  send group_add_strategy
+
+
+12:49:42 log init successful
+12:49:42 open ip_file and change ip
+12:49:42 open file to get strategy
+12:49:42 start thread to run  newwork
+12:49:42 open file to get strategy successful
+12:49:45 client start successful
+12:49:52  send group_add_strategy
+
+
+12:51:48 log init successful
+12:51:48 open ip_file and change ip
+12:51:48 open file to get strategy
+12:51:48 start thread to run  newwork
+12:51:48 open file to get strategy successful
+12:51:51 client start successful
+12:51:56  send group_add_strategy
+12:51:56 main interface build successful
+12:51:56  recive check_runningStrategy
+12:51:56 setItem
+12:51:56 tabulation start build
+12:51:56 tabulation start successful
+12:51:56  recive check_runningStrategy
+12:51:56 setItem
+12:51:56 tabulation start build
+12:51:56 tabulation start successful
+12:51:56 tabulation start build
+12:51:56 tabulation start successful
+12:52:09  send group_remove_strategy
+12:52:09  recive check_removedStrategy
+12:52:09 setItem
+12:52:09 tabulation start build
+12:52:09 tabulation start successful
+12:52:09  recive check_removedStrategy
+12:52:09 setItem
+12:52:09 tabulation start build
+12:52:09 tabulation start successful
+12:52:09 tabulation start build
+12:52:09 tabulation start successful
+12:52:09  recive check_runningStrategy
+12:52:09 setItem
+12:52:40  send group_add_strategy
+12:52:40 main interface build successful
+12:52:40  recive check_runningStrategy
+12:52:40 setItem
+12:52:40 tabulation start build
+12:52:40 tabulation start successful
+12:52:40  recive check_runningStrategy
+12:52:40 setItem
+12:52:40 tabulation start build
+12:52:40 tabulation start successful
+12:52:40 tabulation start build
+12:52:40 tabulation start successful
+12:52:42  send group_remove_strategy
+12:52:42  recive check_removedStrategy
+12:52:42 setItem
+12:52:42 tabulation start build
+12:52:42 tabulation start successful
+12:52:42 tabulation start build
+12:52:42 tabulation start successful
+12:52:42 tabulation start build
+12:52:42 tabulation start successful
+12:52:42  recive check_removedStrategy
+12:52:42 setItem
+12:52:42 tabulation start build
+12:52:42 tabulation start successful
+12:52:42 tabulation start build
+12:52:42 tabulation start successful
+12:52:42 tabulation start build
+12:52:42 tabulation start successful
+12:52:42 tabulation start build
+12:52:42 tabulation start successful
+12:52:42  recive check_runningStrategy
+12:52:42 setItem
+12:53:51 open file to save strategy
+12:53:51 file save successful
+12:53:51 ip file save successful
+
+
+12:54:20 log init successful
+12:54:20 open ip_file and change ip
+12:54:20 open file to get strategy
+12:54:20 start thread to run  newwork
+12:54:20 open file to get strategy successful
+12:54:23 client start successful
+12:54:49 open file to save strategy
+12:54:49 file save successful
+12:54:49 ip file save successful
+
+
+12:56:27 log init successful
+12:56:27 open ip_file and change ip
+12:56:27 open file to get strategy
+12:56:27 start thread to run  newwork
+12:56:27 open file to get strategy successful
+12:56:30 client start successful
+12:56:35 open file to save strategy
+12:56:35 file save successful
+12:56:35 ip file save successful

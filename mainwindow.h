@@ -50,6 +50,12 @@ private slots:
 
     void on_action_IP_triggered();
 
+    void on_radioButton_clicked();
+
+    void on_radioButton_2_clicked(bool checked);
+
+    void on_pushButton_9_clicked();
+
 private:
     static std::string get_now_time();
     Ui::MainWindow *ui;
@@ -81,7 +87,7 @@ private:
     void addstrategy_(strategy_*);//增加新的策略
     void showstrategy_();//展示策略按钮
     void show_txt(strategy_*str);//展示策略按钮对应的文本信息
-    void createTableRow(int x,strategy &s,int choice);//增加表格内容
+    void createTableRow(int x,strategy &s,int choice,int len=0);//增加表格内容
     void createTableRow(std::vector<int>choice);
 
     void setItem(int choice);//设置表格标题

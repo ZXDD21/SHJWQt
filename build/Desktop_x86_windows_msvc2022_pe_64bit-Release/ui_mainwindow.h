@@ -68,6 +68,7 @@ public:
     QPushButton *pushButton_9;
     QWidget *layoutWidget_9;
     QHBoxLayout *horizontalLayout_9;
+    QRadioButton *radioButton_2;
     QLabel *label_9;
     QLineEdit *lineEdit_5;
     QPushButton *pushButton_28;
@@ -217,6 +218,11 @@ public:
         horizontalLayout_9 = new QHBoxLayout(layoutWidget_9);
         horizontalLayout_9->setObjectName("horizontalLayout_9");
         horizontalLayout_9->setContentsMargins(0, 0, 0, 0);
+        radioButton_2 = new QRadioButton(layoutWidget_9);
+        radioButton_2->setObjectName("radioButton_2");
+
+        horizontalLayout_9->addWidget(radioButton_2);
+
         label_9 = new QLabel(layoutWidget_9);
         label_9->setObjectName("label_9");
         label_9->setFont(font1);
@@ -299,8 +305,9 @@ public:
         pushButton_8->setText(QCoreApplication::translate("MainWindow", "\346\237\245\346\211\276", nullptr));
         refresh_table->setText(QCoreApplication::translate("MainWindow", "\345\210\267\346\226\260\350\241\250\346\240\274", nullptr));
         pushButton_3->setText(QCoreApplication::translate("MainWindow", "\346\211\271\351\207\217\345\210\240\351\231\244", nullptr));
-        pushButton_9->setText(QCoreApplication::translate("MainWindow", "\346\222\244\351\224\200\347\255\226\347\225\245", nullptr));
-        label_9->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244\347\255\226\347\225\245", nullptr));
+        pushButton_9->setText(QCoreApplication::translate("MainWindow", "\346\211\271\351\207\217\346\222\244\345\215\225", nullptr));
+        radioButton_2->setText(QCoreApplication::translate("MainWindow", "\345\205\250\351\200\211", nullptr));
+        label_9->setText(QCoreApplication::translate("MainWindow", "\350\247\246\345\217\221\347\255\226\347\225\245", nullptr));
         pushButton_28->setText(QCoreApplication::translate("MainWindow", "\346\237\245\346\211\276", nullptr));
         refresh_table_3->setText(QCoreApplication::translate("MainWindow", "\345\210\267\346\226\260\350\241\250\346\240\274", nullptr));
         menu->setTitle(QCoreApplication::translate("MainWindow", "\344\270\273\347\225\214\351\235\242", nullptr));

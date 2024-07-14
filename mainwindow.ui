@@ -160,7 +160,7 @@
          <item>
           <widget class="QPushButton" name="pushButton_9">
            <property name="text">
-            <string>撤销策略</string>
+            <string>批量撤单</string>
            </property>
           </widget>
          </item>
@@ -169,6 +169,13 @@
        <widget class="QWidget" name="layoutWidget_9">
         <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
+          <widget class="QRadioButton" name="radioButton_2">
+           <property name="text">
+            <string>全选</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLabel" name="label_9">
            <property name="font">
             <font>
@@ -176,7 +183,7 @@
             </font>
            </property>
            <property name="text">
-            <string>删除策略</string>
+            <string>触发策略</string>
            </property>
           </widget>
          </item>

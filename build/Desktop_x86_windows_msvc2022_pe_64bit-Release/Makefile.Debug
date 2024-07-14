@@ -3365,7 +3365,6 @@ debug\moc_newwindow.cpp: ..\..\newwindow.h \
 		..\..\strategy_.h \
 		..\..\..\..\environment\json-develop\json-develop\single_include\nlohmann\json.hpp \
 		..\..\strategy_1.h \
-		..\..\strategy.h \
 		..\..\client.h \
 		..\..\..\..\environment\websocketpp-master\websocketpp-master\websocketpp\client.hpp \
 		..\..\..\..\environment\websocketpp-master\websocketpp-master\websocketpp\roles\client_endpoint.hpp \
@@ -12726,7 +12725,6 @@ debug\newwindow.obj: ..\..\newwindow.cpp ..\..\newwindow.h \
 		..\..\strategy_.h \
 		..\..\..\..\environment\json-develop\json-develop\single_include\nlohmann\json.hpp \
 		..\..\strategy_1.h \
-		..\..\strategy.h \
 		..\..\client.h \
 		..\..\..\..\environment\websocketpp-master\websocketpp-master\websocketpp\client.hpp \
 		..\..\..\..\environment\websocketpp-master\websocketpp-master\websocketpp\roles\client_endpoint.hpp \
@@ -14563,6 +14561,7 @@ debug\newwindow.obj: ..\..\newwindow.cpp ..\..\newwindow.h \
 		..\..\..\..\environment\websocketpp-master\websocketpp-master\websocketpp\transport\asio\security\none.hpp \
 		..\..\..\..\environment\websocketpp-master\websocketpp-master\websocketpp\transport\asio\security\base.hpp \
 		..\..\mainwindow.h \
+		..\..\strategy.h \
 		..\..\log.h \
 		..\..\event.h
 

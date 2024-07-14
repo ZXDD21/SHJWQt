@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     Sleep(3000);
     ui->setupUi(this);
     showstrategy_();
-    ui->label->setText(QString::fromStdString("WWY策略管理系统   "+CL.url));
+    ui->label->setText(QString::fromStdString("事件驱动策略管理系统   "+CL.url));
     logger->log(get_now_time()+"client start successful");
     tha.detach();
 }
@@ -40,7 +40,7 @@ void MainWindow::recive(void*ptr){//接受函数,当收到json包且有type类�
         getstrategy(event_to_send);
     }
     else if(type =="check_removedStrategy"){
-        removestategy(event_to_send);
+        //removestategy(event_to_send);
     }
     else if(type=="update_volume"){
         if(uiHasBeenDisplayed==false)return;
@@ -90,7 +90,7 @@ void MainWindow::recive(void*ptr){//接受函数,当收到json包且有type类�
         getSCOUT_TRADE(event_to_send);
     }
 }
-void MainWindow::createTableRow(int x, strategy &s,int choice)
+void MainWindow::createTableRow(int x, strategy &s,int choice,int len)
 {
     if(choice==0){
         QTableWidgetItem *item=new QTableWidgetItem("选中",1000);
@@ -125,8 +125,10 @@ void MainWindow::createTableRow(int x, strategy &s,int choice)
             case 7: Sta="部分成交";break;
             case -1:Sta= "交易所拒单";break;
         }
-
-            item=new QTableWidgetItem(QString::fromStdString(Sta),IndexStatus+1000);
+            if(sta!=0){
+            createTableRow(x,s,2,len);
+            }
+        item=new QTableWidgetItem(QString::fromStdString(Sta),IndexStatus+1000);
         ui->tableWidget->setItem(x,dataMap["Status"],item);
         int stb=s.ScoutStatus;
         std::string Stb;
@@ -141,7 +143,7 @@ void MainWindow::createTableRow(int x, strategy &s,int choice)
         item=new QTableWidgetItem(QString::fromStdString(Stb),IndexScoutStatus+1000);
         ui->tableWidget->setItem(x,dataMap["ScoutStatus"],item);
     }
-    else{
+    if(choice==1){
         QTableWidgetItem *item=new QTableWidgetItem("选中",1000);
         item->setCheckState(Qt::Unchecked);
         ui->tableWidget_5->setItem(x,0,item);
@@ -191,6 +193,55 @@ void MainWindow::createTableRow(int x, strategy &s,int choice)
         ui->tableWidget_5->setItem(x,IndexCond4LowTime,item);
         item=new QTableWidgetItem(QString::number(s.Cond4HighTime),IndexCond4HighTime+1000);
         ui->tableWidget_5->setItem(x,IndexCond4HighTime,item);
+    }
+    else if(choice==2){
+        int x=len;
+        QTableWidgetItem *item=new QTableWidgetItem("选中",1000);
+        item->setCheckState(Qt::Unchecked);
+        ui->tableWidget_5->setItem(x,0,item);
+        item=new QTableWidgetItem(QString::fromStdString(s.ID),IndexID+1000);
+        ui->tableWidget_5->setItem(x,dataMap["ID"],item);
+        item=new QTableWidgetItem(QString::fromStdString(s.SecurityID),IndexSecurityID+1000);
+        ui->tableWidget_5->setItem(x,dataMap["SecurityID"],item);
+        item=new QTableWidgetItem(QString::fromStdString(s.SecurityName),IndexSecurityName+1000);
+        ui->tableWidget_5->setItem(x,dataMap["SecurityName"],item);
+        item=new QTableWidgetItem(QString::number(s.TargetPosition),IndexTargetPosition+1000);
+        ui->tableWidget_5->setItem(x,dataMap["TargetPosition"],item);
+        item=new QTableWidgetItem(QString::number(s.CurrPosition),IndexCurrPosition+1000);
+        ui->tableWidget_5->setItem(x,dataMap["CurrPosition"],item);
+        item=new QTableWidgetItem(QString::number(s.MaxTriggerTimes),IndexMaxTriggerTimes+1000);
+        ui->tableWidget_5->setItem(x,dataMap["MaxTriggerTimes"],item);
+        item=new  QTableWidgetItem(QString::fromStdString(s.FormalOrderAcptTime),IndexMaxTriggerTimes+1000);
+        ui->tableWidget_5->setItem(x,dataMap["FormalOrderAcptTime"],item);
+        item=new QTableWidgetItem(QString::number(s.BuyTriggerVolume),IndexBuyTriggerVolume+1000);
+        ui->tableWidget_5->setItem(x,dataMap["BuyTriggerVolume"],item);
+        int sta=s.Status;
+        std::string Sta;
+        switch(sta){
+        case 0: Sta="运行中";break;
+        case 1: Sta="已委托";break;
+        case 2:Sta="已撤单";break;
+        case 3: Sta="全部成交";break;
+        case 4:Sta="已停止";break;
+        case 5: Sta="撤单异常";break;
+        case 6: Sta="已暂停";break;
+        case 7: Sta="部分成交";break;
+        case -1:Sta= "交易所拒单";break;
+        }
+        item=new QTableWidgetItem(QString::fromStdString(Sta),IndexStatus+1000);
+        ui->tableWidget_5->setItem(x,dataMap["Status"],item);
+        int stb=s.ScoutStatus;
+        std::string Stb;
+        switch(stb){
+        case 0: Stb="运行中";break;
+        case 1: Stb="已委托";break;
+        case 2:Stb="已撤单";break;
+        case 3: Stb="撤单异常";break;
+        case 4:Stb="成交";break;
+        case -1:Stb= "交易所拒单";break;
+        }
+        item=new QTableWidgetItem(QString::fromStdString(Stb),IndexScoutStatus+1000);
+        ui->tableWidget_5->setItem(x,dataMap["ScoutStatus"],item);
     }
 }
 void MainWindow::createTableRow(std::vector<int>choice){
@@ -244,6 +295,58 @@ void MainWindow::createTableRow(std::vector<int>choice){
                 }else if(choice[j]==dataMap["order_trigger_time"]){
                     QTableWidgetItem * item=new QTableWidgetItem(QString::fromStdString(event_map[ui->tableWidget->item(i,1)->text().toStdString()].order_trigger_time),1000+50+j);
                     ui->tableWidget->setItem(i,choice[j],item);
+                }
+            }
+        }
+    }
+    for(int i=0;i<ui->tableWidget_5->rowCount();i++){
+        auto it = event_map.find(ui->tableWidget_5->item(i,1)->text().toStdString());
+        if(it!=event_map.end()){
+            for(auto j:choice){
+                if(j==dataMap["volume_before_strate"]){
+                    QTableWidgetItem *item=new QTableWidgetItem(QString::number(event_map[ui->tableWidget_5->item(i,1)->text().toStdString()].volume_before_strate/10000)+"万",1000+50);
+                    ui->tableWidget_5->setItem(i,dataMap["volume_before_strate"],item);
+                }
+                else if(j==dataMap["fengban_volume"]){
+                    QTableWidgetItem *item=new QTableWidgetItem(QString::number(event_map[ui->tableWidget_5->item(i,1)->text().toStdString()].fenban_volume/10000)+"万",51+1000);
+                    ui->tableWidget_5->setItem(i,dataMap["fengban_volume"],item);
+                }else if(choice[j]==dataMap["Status"]){
+                    QString stab=QString::number(event_map[ui->tableWidget_5->item(i,1)->text().toStdString()].trade_volume);
+                    int sta=stab.toInt();
+                    std::string Sta;
+                    switch(sta){
+                    case 0: Sta="运行中";break;
+                    case 1: Sta="已委托";break;
+                    case 2:Sta="已撤单";break;
+                    case 3: Sta="全部成交";break;
+                    case 4:Sta="已停止";break;
+                    case 5: Sta="撤单异常";break;
+                    case 6: Sta="已暂停";break;
+                    case 7: Sta="部分成交";break;
+                    case -1:Sta= "交易所拒单";break;
+                    }
+                    QTableWidgetItem *item=new QTableWidgetItem(QString::fromStdString(Sta),1000+50+j);
+                    ui->tableWidget_5->setItem(i,choice[j],item);
+                }else if(choice[j]==dataMap["ScoutStatus"]){
+                    QString stab=QString::number(event_map[ui->tableWidget_5->item(i,1)->text().toStdString()].scout_status);
+                    int stb=stab.toInt();
+                    std::string Stb;
+                    switch(stb){
+                    case 0: Stb="运行中";break;
+                    case 1: Stb="已委托";break;
+                    case 2:Stb="已撤单";break;
+                    case 3: Stb="撤单异常";break;
+                    case 4:Stb="成交";break;
+                    case -1:Stb= "交易所拒单";break;
+                    }
+                    QTableWidgetItem *item=new QTableWidgetItem(QString::fromStdString(Stb),1000+50+j);
+                    ui->tableWidget_5->setItem(i,choice[j],item);
+                }else if(choice[j]==dataMap["formal_trigger_times"]){
+                    QTableWidgetItem * item=new QTableWidgetItem(QString::number(event_map[ui->tableWidget_5->item(i,1)->text().toStdString()].formal_trigger_times),1000+50+j);
+                    ui->tableWidget_5->setItem(i,choice[j],item);
+                }else if(choice[j]==dataMap["order_trigger_time"]){
+                    QTableWidgetItem * item=new QTableWidgetItem(QString::fromStdString(event_map[ui->tableWidget_5->item(i,1)->text().toStdString()].order_trigger_time),1000+50+j);
+                    ui->tableWidget_5->setItem(i,choice[j],item);
                 }
             }
         }
@@ -427,9 +530,17 @@ void MainWindow::setItem(int choice)//设置表格标题
             ui->tableWidget->setHorizontalHeaderItem(i,headerItem);
         }
     }
-    else{
+    if(choice==1){
         headerText<<"选中"<<"策略编号"<<"股票代码"<<"股票名称"<<"交易所"<<"封单额"<<"撤单额"<<"目标仓位(元)"<<"目标仓位(股)"<<"已买仓位(股)"<<"策略委托"<<"延迟触发"<<"大单延迟时间"<<"策略状态"<<"撤单次数"<<"保护单状态"<<"保护单触发金额"<<"保护单监控区间"<<"撤单动量比例"<<"撤单动量监控时间"<<"撤单动量时间区间"<<"大单大撤单金额"<<"大单大撤单开始时间"<<"大单大撤单结束时间";
         ui->tableWidget_5->setColumnCount(24);
+        for(int i=0;i<ui->tableWidget_5->columnCount();i++){
+            headerItem=new QTableWidgetItem(headerText.at(i));
+            ui->tableWidget_5->setHorizontalHeaderItem(i,headerItem);
+        }
+    }
+    if(choice==2){
+        headerText<<"选中"<<"策略编号"<<"股票代码"<< "股票名称"<<"触发金额"<<"单前金额（万）"<<"封单金额(万)"<<"目标仓位（股)"<<"已买仓位"<<"正式单状态"<<"保护单状态"<<"委托时间"<<"触发次数";
+        ui->tableWidget_5->setColumnCount(13);
         for(int i=0;i<ui->tableWidget_5->columnCount();i++){
             headerItem=new QTableWidgetItem(headerText.at(i));
             ui->tableWidget_5->setHorizontalHeaderItem(i,headerItem);
@@ -447,7 +558,7 @@ void MainWindow::getvolume(json event_to_send)
 
 void MainWindow::updata_event_map(json &event_to_send,std::vector<int>choice)
 {
-    if(event_map.find(event_to_send["S_id"].get<std::string>())!=event_map.end()){
+    if(event_map.find(event_to_send["S_id"].get<std::string>())==event_map.end()){
         event_map[event_to_send["S_id"].get<std::string>()]=Event(event_to_send);
     }
     else{
@@ -479,8 +590,15 @@ void MainWindow:: InittableWidget(int choice){//初始化表格
 
     if(choice==0){
         ui->tableWidget->clear();
+        ui->tableWidget_5->clear();
         setItem(choice);
+        setItem(2);
         ui->tableWidget->setRowCount(Strategy.size());
+        int count=0;
+        for(auto i:Strategy){
+            if(i.Status!=0)count++;
+        }
+        ui->tableWidget_5->setRowCount(count);
         std::list<strategy>::iterator it=Strategy.begin();
         std::vector<strategy> vecStrategy(Strategy.begin(), Strategy.end());
 
@@ -494,8 +612,10 @@ void MainWindow:: InittableWidget(int choice){//初始化表格
 
         // 将排序后的 vector 复制回 std::list
         Strategy.assign(vecStrategy.begin(), vecStrategy.end());
+        int len=-1;
         for(int i=0;i<Strategy.size();i++){
-            createTableRow(i,*it,choice);
+            if(it->Count!=0)len++;
+            createTableRow(i,*it,choice,len);
             it++;
         }
         uiHasBeenDisplayed=true;
@@ -539,10 +659,36 @@ void MainWindow::on_pushButton_3_clicked()//发送remove包
     json son_message;
     son_message["request_type"]="group_remove_strategy";
     son_message["payload"]=nlohmann::json::array();
+    std::vector<std::string>count;
     for (int row = 0; row < ui->tableWidget->rowCount(); ++row) {
         if(ui->tableWidget->item(row,0)->checkState()){
             for(auto &temporary_data:Strategy){
                 if(temporary_data.ID==ui->tableWidget->item(row,1)->text().toStdString()){
+                    count.push_back(temporary_data.ID);
+                    std::string SecurityID;//证券代码 1
+                    std::string ExchangeID;//交易所 1
+                    std::string ID;//策略编号 1
+                    json data;
+                    data["SecurityID"]=temporary_data.SecurityID;
+                    data["ExchangeID"]=std::to_string(temporary_data.ExchangeID=="SSE" ?1:2);
+                    data["S_id"]=stoi(temporary_data.ID);
+                    son_message["payload"].push_back(data);
+                }
+            }
+        }
+    }
+    for (int row = 0; row < ui->tableWidget_5->rowCount(); ++row) {
+        if(ui->tableWidget_5->item(row,0)->checkState()){
+            for(auto &temporary_data:Strategy){
+                if(temporary_data.ID==ui->tableWidget_5->item(row,1)->text().toStdString()){
+                    if([](std::vector<std::string>a,std::string b)->bool{
+                            for(const auto &i:a){
+                                if(i==b)return true;
+                            }
+                            return false;
+                        }(count,temporary_data.ID)){
+                        continue;
+                    }
                     std::string SecurityID;//证券代码 1
                     std::string ExchangeID;//交易所 1
                     std::string ID;//策略编号 1
@@ -772,7 +918,6 @@ void MainWindow::getstrategy(json data)
             );
         Strategy.push_back(newStrategy);
     }
-
     InittableWidget(0);
 }
 void MainWindow:: removestategy(json data){
@@ -909,7 +1054,7 @@ void MainWindow::saveurl()
 void MainWindow::on_refresh_table_3_clicked()
 {
     json son_message;
-    son_message["request_type"]="check_removed_strategy";
+    son_message["request_type"]="check_running_strategy";
     son_message["payload"]=nlohmann::json::array();
     logger->log(get_now_time()+" send "+son_message["request_type"].get<std::string>());
 
@@ -921,12 +1066,14 @@ void MainWindow::on_pushButton_28_clicked()
     ui->tableWidget_5->clear();
     ui->tableWidget_5->setRowCount(0);
     int size=0;
-    setItem(1);
-    for(auto i:removeStrategy){
+    setItem(0);
+    for(auto i:Strategy){
         if(String==""||i.SecurityID==String){
-            ui->tableWidget_5->setRowCount(size+1);
-            createTableRow(size,i,1);
-            ++size;
+            if(i.Status!=0){
+                ui->tableWidget_5->setRowCount(size+1);
+                createTableRow(size,i,2,size);
+                ++size;
+            }
         }
     }
 }
@@ -1064,5 +1211,48 @@ std::string MainWindow::get_now_time()
               << std::setfill('0') << std::setw(2) << now_tm.tm_min << ":"
               << std::setfill('0') << std::setw(2) << now_tm.tm_sec <<" ";
     return ss.str();
+}
+
+
+void MainWindow::on_radioButton_clicked()
+{
+
+}
+
+
+void MainWindow::on_radioButton_2_clicked(bool checked)
+{
+    if(checked){
+        for(int i=0;i<ui->tableWidget_5->rowCount();i++){
+            ui->tableWidget->item(i,0)->setCheckState(Qt::Checked);
+        }
+    }
+    else{
+        for(int i=0;i<ui->tableWidget_5->rowCount();i++){
+            ui->tableWidget->item(i,0)->setCheckState(Qt::Unchecked);
+        }
+    }
+}
+
+
+void MainWindow::on_pushButton_9_clicked()
+{
+    json son_message;
+    son_message["request_type"]="manuel_send_cancel";
+    son_message["payload"]=nlohmann::json::array();
+    for (int row = 0; row < ui->tableWidget_5->rowCount(); ++row) {
+        if(ui->tableWidget_5->item(row,0)->checkState()){
+            for(auto &temporary_data:Strategy){
+                if(temporary_data.ID==ui->tableWidget_5->item(row,1)->text().toStdString()){
+                    std::string ID;//策略编号 1
+                    json data;
+                    data["S_id"]=stoi(temporary_data.ID);
+                    son_message["payload"].push_back(data);
+                }
+            }
+        }
+    }
+    logger->log(get_now_time()+" send "+son_message["request_type"].get<std::string>());
+    CL.send(son_message);
 }
 
